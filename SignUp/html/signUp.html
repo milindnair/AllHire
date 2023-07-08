@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../styles/signUp.css" />
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="transition-overlay">
+        <div class=" d-grid align-items-center justify-content-center"
+            style="background-color: rgba(13, 9, 41, 0.4);height: 100vh;">
+            <div class="mainContainer">
+                <div class="image">
+                    <p class="text">Let the Search<br> Begin!<br>Sign up Now!</p>
+                    <img src="../../assets/Frame.png" alt="login" />
+                    <img src="../../assets/woman.png" alt="woman" class="woman" />
+                </div>
+                <div class="rightContainer">
+                    <div class="d-flex justify-content-end w-100">
+                        <a href="../../index.html" style="text-decoration: none;">
+                            <p
+                                style="margin-right: 20px;margin-top: 10px; font-size: large; cursor: pointer; color: white;">
+                                Home
+                            </p>
+                        </a>
+                    </div>
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Organisation Name</label>
+                            <input type="text" class="form-control " id=organisationName" placeholder="for ex:google">
+                            <label for="exampleFormControlInput1" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="userName" placeholder="for ex:Milind Nair">
+                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="for ex:name@example.com">
+                            <label for="exampleFormControlInput1" class="form-label">Password</label>
+                            <input type="password" id="inputPassword5" class="form-control"
+                                aria-labelledby="passwordHelpBlock">
+                        </div>
+                        <div class="d-grid align-items-center justify-content-center " style="margin-bottom: 30px;">
+                            <button type="button signInButton" class="btn btn-primary btn-lg signInButton"
+                                style="border-radius: 26px;">Sign In</button>
+                        </div>
+                        <div class="d-grid align-items-center justify-content-center ">
+                            <h4>Already have an accoount? &nbsp;&nbsp;<span><a  class="loginButton"
+                                        style="text-decoration: none;color: yellow;cursor: pointer;">Login</a></span></h2>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../js/signUp.js"></script>
+</body>
+
+</html>
