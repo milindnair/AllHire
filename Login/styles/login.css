@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+* {
+    font-family: Manrope;
+  }
+  
+  .transition-overlay.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+  }
+  
+  .transition-overlay.active {
+    opacity: 0;
+    pointer-events: auto;
+  }
+  
+  .mainContainer {
+    height: 90vh;
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .image {
+    position: relative;
+    height: 100%;
+  }
+  
+  .image .text {
+    position: absolute;
+    top: 38%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    color: #000;
+    font-family: Manrope;
+    font-size: 66px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 74px;
+    letter-spacing: -4.64px;
+  }
+  
+  .image img {
+    height: 100%;
+    width: 60vw;
+  }
+  
+  .image .woman {
+    position: absolute;
+    top: 57%;
+    left: 20%;
+    width: 335px;
+    height: 288.212719298px;
+    flex-shrink: 0;
+  }
+  
+  .rightContainer {
+    position: relative;
+    width: 40vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(21, 15, 15, 0.94);
+    color: #FFFFFF;
+  }
+
+  .rightContainer .homeLink {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: large;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .rightContainer form .d-grid button {
+    width: 156px;
+    border: none;
+    background-color: #4000F5;
+  }
+  
+  .rightContainer form .d-grid button:hover {
+    scale: 1.1;
+    transition: 0.5s ease-in-out;
+    background-color: #4000F5;
+  }
+  
+  .rightContainer form .mb-3 .form-label {
+    font-size: 20px;
+    color: #FFFFFF;
+  }
+  
+  .rightContainer form .mb-3 .form-control {
+    width: 336px;
+    height: 40px;
+    margin-bottom: 35px;
+    border-radius: 16px;
+  }
+  
+  .signInButton{
+    border-radius: 26px;
+  }
+  /* Media Queries */
+  
+  @media (max-width: 767px) {
+    .mainContainer {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+  
+    .image {
+      position: relative;
+      height: 100%;
+    }
+  
+    .image .text {
+        top: 30%;
+        font-size: 28px;
+        line-height: 36px;
+        letter-spacing: -3.36px;
+    }
+  
+    .image img {
+        width: 100%;
+    }
+  
+    .image .woman {
+      position: absolute;
+      left: -10%;
+        top: 25%;
+        scale: 0.5;
+  
+    }
+  
+    .rightContainer {
+        width: 100vw;
+        height: auto;
+        padding: 20px;
+    }
+  
+    .rightContainer form .mb-3 .form-control {
+        width: 100%;
+    }
+  
+    h4{
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: -1.2px;
+    }
+  }
