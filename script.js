@@ -5,6 +5,22 @@ bar.addEventListener('click', () => {
     navItem.classList.toggle('active');
 })
 
+document.addEventListener('DOMContentLoaded', function () {
+    var getStartedBtn = document.getElementById('getStartedBtn');
+
+    getStartedBtn.addEventListener('click', function () {
+      var loggedInUser = sessionStorage.getItem('username');
+
+      if (loggedInUser === null) {
+        // Redirect to login page
+        window.location.href = './Login/html/login.html';
+      } else {
+        // Redirect to portal
+        window.location.href = './Portal/html/portal.html';
+      }
+    });
+  });
+
 var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
     grabCursor: true,

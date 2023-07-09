@@ -17,7 +17,7 @@
 <body>
     <div class="navbar-container">
         <div class="logo-container">
-            <a href="index.html">All Hire</a>
+            <a href="../../index.html">All Hire</a>
         </div>
         <div class="bars">
             <div class="bar"></div>
@@ -26,7 +26,7 @@
         </div>
         <ul class="nav-items">
             <li class="nav-link active"><a href="#">Find Employers</a></li>
-            <li class="nav-link"><a href="#">Inbox</a></li>
+            <li class="nav-link"><a href="../../Inbox/html/inbox.html">Inbox</a></li>
         </ul>
     </div>
 
@@ -37,14 +37,14 @@
         <div class="search-container">
             <div style="display: flex;justify-content: center;align-items: center;width:40%">
                 <img src="../../assets/Search.svg" alt="search" style="height: 45px;width: 45px;" />
-                <input type="text" placeholder="Job Title or Keyword" class="underlined-input" />
+                <input type="text" placeholder="Job Title or Keyword" class="underlined-input" id="searchInput">
             </div>
             <div class="location-search-container"
                 style="display: flex;justify-content: center;align-items: center;width:40%">
 
                 <img src="../../assets/Location.svg" alt="search" class="location-search-icon"
                     style="height: 45px;width: 45px;">
-                <select class="form-select underlined-input">
+                <select class="form-select underlined-input" id="locationSelect">
                     <option value="">Select a Continent</option>
                     <option value="1">Africa</option>
                     <option value="2">Asia</option>
@@ -63,260 +63,145 @@
                 font-size: 24px;
                 font-style: normal;
                 font-weight: 700;
-                line-height: normal;">Search</button>
+                line-height: normal;" id="searchButton">Search</button>
             </div>
 
         </div>
+        <script>
+            fetch('employees.json')
+                .then(response => response.json())
+                .then(data => {
+                    const empList = document.querySelector('.emp_list');
+                    let originalData = [...data]; // Store a copy of the original data
+        
+                    // Generate HTML for filtered employees based on search input and location
+                    const generateFilteredEmployeesHTML = (employees) => {
+                        // Clear the employee list
+                        empList.innerHTML = '';
+        
+                        // Loop through the filtered employee data and generate HTML for each employee
+                        employees.forEach(employee => {
+                            const empContainer = document.createElement('div');
+                            empContainer.classList.add('emp_container');
+        
+                            const empContent = `
+                                <div style="display: flex;align-items: center; justify-content: center;">
+                                    <img src="${employee.picture}" alt="" style="margin-top: 10px;width: 237px;height: 179px;">
+                                    <div style="display: flex;flex-direction: column;justify-content: center;gap:5px">
+                                        <h3>${employee.name}</h3>
+                                        <h4>${employee.location}</h4>
+                                        <div style="display: flex;flex-direction: row;gap:2px">
+                                            ${employee.employment.map(type => `<div style="border: 1px solid black;margin-left:4px;margin-right:4px">${type}</div>`).join('')}
+                                        </div>
+                                        <h3>Has worked in ${employee.companyCount} companies</h3>
+                                    </div>
+                                    <button class="btn btn-primary" style="margin-left:auto;margin-right:15px;width: 170px;height: 46px;background-color: #5926E9;border-radius: 5px;" onclick="addToInbox(this)">Move to Inbox</button>
+                                </div>
+                            `;
+        
+                            empContainer.innerHTML = empContent;
+                            empList.appendChild(empContainer);
+                        });
+                    };
+        
+                    // Perform search based on search input and location
+                    const performSearch = () => {
+                        const searchInputValue = document.getElementById('searchInput').value.toLowerCase();
+                        const locationSelectValue = document.getElementById('locationSelect').value.toLowerCase();
 
+                        console.log(searchInputValue, locationSelectValue);
+        
+                        const filteredEmployees = originalData.filter(employee => {
+                            // Check if the employee's name or employment array contains the search input
+                            const hasKeyword = employee.name.toLowerCase().includes(searchInputValue) ||
+                                employee.employment.some(type => type.toLowerCase().includes(searchInputValue));
+        
+                            // Check if the employee's location matches the selected location
+                            const hasLocation = locationSelectValue === '' || employee.location.toLowerCase().includes(locationSelectValue);
+        
+                            return hasKeyword && hasLocation;
+                        });
+        
+                        generateFilteredEmployeesHTML(filteredEmployees);
+                    };
+        
+                    // Call performSearch initially to display all employees
+                    performSearch();
+        
+                    // Add event listeners to the search input and location select to update the filtered results
+                    const searchInput = document.getElementById('searchInput');
+                    const locationSelect = document.getElementById('locationSelect');
+        
+                    searchInput.addEventListener('input', performSearch);
+                    locationSelect.addEventListener('change', performSearch);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        </script>
+        
     </div>
 
     <div class="mainContainer">
-        <div class="options">
-            <div class="job_roles">
-                <div style="display: flex;justify-content: center;align-items: center;gap: 10px;">
-                    <h1>Job Roles</h1>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                        viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                        <path
-                            d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z" />
-                    </svg>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Checked checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Checked checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Checked checkbox
-                    </label>
-                </div>
-            </div>
-            <div class="location">
-                <div style="display: flex;justify-content: center;align-items: center;gap: 10px;">
-                    <h1>Location</h1>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                        viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                        <path
-                            d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z" />
-                    </svg>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Checked checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Checked checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Checked checkbox
-                    </label>
-                </div>
-            </div>
-        </div>
+        
         <div class="list">
-            <div style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
-                <div style="display: flex;flex-direction:column;">
+            <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+                <div style="display: flex; flex-direction: column;">
                     <h1>All Employees</h1>
-                    <h4>Showing results</h4>
                 </div>
-                <div class="svg-section" style="position: absolute;right: 40px;display: flex;gap: 50px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="34" viewBox="0 0 35 34" fill="none">
-                        <rect x="1" y="1" width="13.2174" height="13.1111" fill="white" stroke="#5926E9" stroke-width="2"/>
-                        <rect x="20.7827" y="1" width="13.2174" height="13.1111" fill="white" stroke="#5926E9" stroke-width="2"/>
-                        <rect x="1" y="19.8889" width="13.2174" height="13.1111" fill="white" stroke="#5926E9" stroke-width="2"/>
-                        <rect x="20.7827" y="19.8889" width="13.2174" height="13.1111" fill="white" stroke="#5926E9" stroke-width="2"/>
-                      </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="37" height="34" viewBox="0 0 37 34" fill="none">
-                        <rect width="37" height="14.2575" fill="#5926E9"/>
-                        <rect y="19.7426" width="37" height="14.2575" fill="#5926E9"/>
-                      </svg>
-                </div>                
             </div>
             <div class="emp_list">
-                <div class="emp_container">
-                    <div style="display: flex;align-items: center;">
-                        <img src="../../assets/man1.png" alt="" style="margin-top: 10px;">
-                        <div style="display: flex;flex-direction: column;justify-content: space-between;gap:5px">
-                            <h3>John Doe</h3>
-                            <h4>City , State , Country</h3>
-                            <div style="display: flex;flex-direction: row;gap:2px">
-                                <div style="border: 1px solid black;">
-                                    Full time
-                                </div>
-                                <div style="border: 1px solid black;">
-                                    Marketing
-                                </div>
-                                <div style="border: 1px solid black;">
-                                    Design
-                                </div>
-                            </div>
-                            <h3>Has worked in 5 compannies</h3>
-                        </div>
-                        <button class="btn btn-primary" style="margin-left:auto;margin-right:15px;width: 170px;height: 46px;background-color: #5926E9;border-radius: 5px;">Move to Inbox</button>
-
-                    </div>
-                </div>
-                <div class="emp_container">
-                    <div style="display: flex;align-items: center;">
-                        <img src="../../assets/man1.png" alt="" style="margin-top: 10px;">
-                        <div style="display: flex;flex-direction: column;justify-content: space-between;gap:5px">
-                            <h3>John Doe</h3>
-                            <h4>City , State , Country</h3>
-                            <div style="display: flex;flex-direction: row;gap:2px">
-                                <div style="border: 1px solid black;">
-                                    Full time
-                                </div>
-                                <div style="border: 1px solid black;">
-                                    Marketing
-                                </div>
-                                <div style="border: 1px solid black;">
-                                    Design
-                                </div>
-                            </div>
-                            <h3>Has worked in 5 compannies</h3>
-                        </div>
-                        <button class="btn btn-primary" style="margin-left:auto;margin-right:15px;width: 170px;height: 46px;background-color: #5926E9;border-radius: 5px;">Move to Inbox</button>
-
-                    </div>
-                </div>
-                <div class="emp_container">
-                    <div style="display: flex;align-items: center;">
-                        <img src="../../assets/man1.png" alt="" style="margin-top: 10px;">
-                        <div style="display: flex;flex-direction: column;justify-content: space-between;gap:5px">
-                            <h3>John Doe</h3>
-                            <h4>City , State , Country</h3>
-                            <div style="display: flex;flex-direction: row;gap:2px">
-                                <div style="border: 1px solid black;">
-                                    Full time
-                                </div>
-                                <div style="border: 1px solid black;">
-                                    Marketing
-                                </div>
-                                <div style="border: 1px solid black;">
-                                    Design
-                                </div>
-                            </div>
-                            <h3>Has worked in 5 compannies</h3>
-                        </div>
-                        <button class="btn btn-primary" style="margin-left:auto;margin-right:15px;width: 170px;height: 46px;background-color: #5926E9;border-radius: 5px;">Move to Inbox</button>
-
-                    </div>
-                </div>
-                <div class="emp_container">
-                    <div style="display: flex;align-items: center;">
-                        <img src="../../assets/man1.png" alt="" style="margin-top: 10px;">
-                        <div style="display: flex;flex-direction: column;justify-content: space-between;gap:5px">
-                            <h3>John Doe</h3>
-                            <h4>City , State , Country</h3>
-                            <div style="display: flex;flex-direction: row;gap:2px">
-                                <div style="border: 1px solid black;">
-                                    Full time
-                                </div>
-                                <div style="border: 1px solid black;">
-                                    Marketing
-                                </div>
-                                <div style="border: 1px solid black;">
-                                    Design
-                                </div>
-                            </div>
-                            <h3>Has worked in 5 compannies</h3>
-                        </div>
-                        <button class="btn btn-primary" style="margin-left:auto;margin-right:15px;width: 170px;height: 46px;background-color: #5926E9;border-radius: 5px;">Move to Inbox</button>
-
-                    </div>
-                </div>
-                <nav aria-label="Page navigation" style="margin-top: 20px;">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
+                <!-- Employee data will be displayed here -->
+            </div>
+            <nav aria-label="Page navigation" style="margin-top: 20px;">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                      </li>
-                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
                         <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
-            </div>
-        </div>
-        
-    </div>
-    <div class="footer">
-            <div class="leftContainer">
-                Any Questions?<br>Write us we will get back in 24 hours
-            </div>
-            <div class="ContactForm">
-                <form>
-                    <div class="mb-3" style="width: 100%;">
-                        <input type="text" class="form-control " id=organisationName" placeholder="Milind Nair" style="margin-bottom: 5px;width: 100%;">
-                        <input type="text" class="form-control" id="userName" placeholder="name@example.com" style="margin-bottom: 5px;width: 100%;">
-                        <input type="email" class="form-control" id="email" placeholder="Team Lead" style="margin-bottom: 5px;width: 100%;">
-                        <textarea id="message" name="message" rows="5" cols="50" style="border-radius: 5px;width: 100%;"></textarea>
-                    </div>
-                    <div class="d-flex align-items-center" style="margin-bottom: 10px;">
-                        <div class="d-grid align-items-center justify-content-center" style="width: 100%;">
-                            <button type="button signInButton" class="btn btn-primary btn-lg signInButton" style="border-radius: 5px;">Send</button>
-                        </div>
-                    </div>
-                    
-                </form>
-            </div>
-
+                    </li>
+                </ul>
+            </nav>
         </div>
     
+       
+        </script>
+
+    </div>
+    
+    
+    <div class="footer">
+        <div class="leftContainer">
+            Any Questions?<br>Write us we will get back in 24 hours
+        </div>
+        <div class="ContactForm">
+            <form>
+                <div class="mb-3" style="width: 100%;">
+                    <input type="text" class="form-control " id=organisationName" placeholder="Milind Nair"
+                        style="margin-bottom: 5px;width: 100%;">
+                    <input type="text" class="form-control" id="userName" placeholder="name@example.com"
+                        style="margin-bottom: 5px;width: 100%;">
+                    <input type="email" class="form-control" id="email" placeholder="Team Lead"
+                        style="margin-bottom: 5px;width: 100%;">
+                    <textarea id="message" name="message" rows="5" cols="50"
+                        style="border-radius: 5px;width: 100%;"></textarea>
+                </div>
+                <div class="d-flex align-items-center" style="margin-bottom: 10px;">
+                    <div class="d-grid align-items-center justify-content-center" style="width: 100%;">
+                        <button type="button signInButton" class="btn btn-primary btn-lg signInButton"
+                            style="border-radius: 5px;">Send</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
     <script src="../js/Portal.js"></script>
 </body>
 

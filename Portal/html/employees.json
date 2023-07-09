@@ -1,0 +1,45 @@
+[
+    {
+      "name": "John Doe",
+      "location": "City1, State1, Country1,Africa",
+      "picture": "../../assets/man1.png",
+      "employment": ["Full time", "Marketing", "Design"],
+      "companyCount": 5
+    },
+    {
+      "name": "Jane Smith",
+      "location": "City2, State2, Country2,Asia",
+      "picture": "../../assets/man2.png",
+      "employment": ["Part time", "Sales", "Development"],
+      "companyCount": 3
+    },
+    {
+      "name": "David Johnson",
+      "location": "City3, State3, Country3,Australia",
+      "picture": "../../assets/woman1.png",
+      "employment": ["Freelance", "Finance", "Management"],
+      "companyCount": 7
+    },
+    {
+      "name": "John Doe",
+      "location": "City4, State4, Country4,Europe",
+      "picture": "../../assets/man1.png",
+      "employment": ["Full time", "Marketing", "Design"],
+      "companyCount": 5
+    },
+    {
+      "name": "Jane Smith",
+      "location": "City5, State5, Country5,North America",
+      "picture": "../../assets/man2.png",
+      "employment": ["Part time", "Sales", "Development"],
+      "companyCount": 3
+    },
+    {
+      "name": "David Johnson",
+      "location": "City6, State6, Country6,South America",
+      "picture": "../../assets/man2.png",
+      "employment": ["Freelance", "Finance", "Management"],
+      "companyCount": 7
+    }
+  ]
+  

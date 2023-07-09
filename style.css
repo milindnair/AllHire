@@ -308,7 +308,7 @@ a {
     display: flex;
     height: 220px;
     margin: 5vw;
-    margin-top: 10vw;
+    margin-top: 5vw;
     justify-content: center;
     align-items: center;
     border-radius: 40px;
@@ -367,6 +367,7 @@ a {
     font-weight: 500;
     line-height: normal;
 }
+
 
 .content .rec_process_content .rec_process_content_item .item_expand{
     position: absolute;
