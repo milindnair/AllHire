@@ -13,62 +13,71 @@
     <link rel="stylesheet" href="../styles/inbox.css" />
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Fetch details from localStorage
-        var inboxData = JSON.parse(localStorage.getItem('inboxItems'));
+    // Fetch details from localStorage
+    var inboxData = JSON.parse(localStorage.getItem('inboxItems'));
 
-        // Get the emp_list element
-        var empList = document.querySelector('.emp_list');
+    // Get the emp_list element
+    var empList = document.querySelector('.emp_list');
 
-        // Check if inboxData exists in localStorage and if it has any items
-        if (inboxData && inboxData.length > 0) {
-            // Loop through the inboxData array
-            inboxData.forEach(function (item, index) {
-                // Create the container element
-                var container = document.createElement('div');
-                container.className = 'emp_container';
+    // Check if inboxData exists in localStorage and if it has any items
+    if (inboxData && inboxData.length > 0) {
+        // Loop through the inboxData array
+        inboxData.forEach(function (item, index) {
+            // Create the container element
+            var container = document.createElement('div');
+            container.className = 'emp_container';
 
-                // Create the inner content
-                var content = `
-                    <div style="display: flex; align-items: center;">
-                      <img src="${item.picture}" alt="" style="margin-top: 10px;">
-                      <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 5px;">
-                        <h3>${item.name}</h3>
-                        <h4>${item.location}</h4>
-                        <div style="display: flex; flex-direction: row; gap: 2px;">
-                          ${item.employment.map(function (type) {
-                            return `<div style="border: 1px solid black;">${type}</div>`;
-                        }).join('')}
-                        </div>
-                        <h3>Has worked in ${item.companyCount} companies</h3>
-                      </div>
-                      <button class="btn btn-primary ${item.isAdded ? 'added' : ''}" style="margin-left:auto;margin-right:15px;width: 170px;height: 46px;background-color: #5926E9;border-radius: 5px;" ${item.isAdded ? 'disabled' : ''}>${item.isAdded ? 'Already Added' : 'Remove from Inbox'}</button>
+            // Create the inner content
+            var content = `
+                <div style="display: flex; align-items: center;">
+                  <img src="${item.picture}" alt="" style="margin-top: 10px;">
+                  <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 5px;">
+                    <h3>${item.name}</h3>
+                    <h4>${item.location}</h4>
+                    <div style="display: flex; flex-direction: row; gap: 2px;">
+                      ${item.employment.map(function (type, index) {
+                        var color;
+                        if (index === 0) {
+                            color = 'green';
+                        } else if (index === 1) {
+                            color = 'yellow';
+                        } else {
+                            color = '#A910CF';
+                        }
+                        return `<div style="border: 1px solid ${color}; color: ${color};">${type}</div>`;
+                    }).join('')}
                     </div>
-                `;
+                    <h3>Has worked in ${item.companyCount} companies</h3>
+                  </div>
+                  <button class="btn btn-primary ${item.isAdded ? 'added' : ''}" style="margin-left:auto;margin-right:15px;width: 170px;height: 46px;background-color: #5926E9;border-radius: 5px;" ${item.isAdded ? 'disabled' : ''}>${item.isAdded ? 'Already Added' : 'Remove from Inbox'}</button>
+                </div>
+            `;
 
-                // Set the inner content to the container
-                container.innerHTML = content;
+            // Set the inner content to the container
+            container.innerHTML = content;
 
-                // Append the container to the emp_list element
-                empList.appendChild(container);
+            // Append the container to the emp_list element
+            empList.appendChild(container);
 
-                // Add event listener to the "Remove from Inbox" button
-                var removeButton = container.querySelector('.btn-primary');
-                removeButton.addEventListener('click', function () {
-                    // Remove the item from the inboxData array
-                    inboxData.splice(index, 1);
+            // Add event listener to the "Remove from Inbox" button
+            var removeButton = container.querySelector('.btn-primary');
+            removeButton.addEventListener('click', function () {
+                // Remove the item from the inboxData array
+                inboxData.splice(index, 1);
 
-                    // Update the localStorage
-                    localStorage.setItem('inboxItems', JSON.stringify(inboxData));
+                // Update the localStorage
+                localStorage.setItem('inboxItems', JSON.stringify(inboxData));
 
-                    // Reload the page
-                    location.reload();
-                });
+                // Reload the page
+                location.reload();
             });
-        } else {
-            // Display a message when there are no contents in the inbox
-            empList.innerHTML = '<p>No contents as of now</p>';
-        }
-    });
+        });
+    } else {
+        // Display a message when there are no contents in the inbox
+        empList.innerHTML = '<p>No contents as of now</p>';
+    }
+});
+
 </script>
 
     <title>Document</title>

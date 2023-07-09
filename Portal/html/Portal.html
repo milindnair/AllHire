@@ -81,27 +81,37 @@
         
                         // Loop through the filtered employee data and generate HTML for each employee
                         employees.forEach(employee => {
-                            const empContainer = document.createElement('div');
-                            empContainer.classList.add('emp_container');
-        
-                            const empContent = `
-                                <div style="display: flex;align-items: center; justify-content: center;">
-                                    <img src="${employee.picture}" alt="" style="margin-top: 10px;width: 237px;height: 179px;">
-                                    <div style="display: flex;flex-direction: column;justify-content: center;gap:5px">
-                                        <h3>${employee.name}</h3>
-                                        <h4>${employee.location}</h4>
-                                        <div style="display: flex;flex-direction: row;gap:2px">
-                                            ${employee.employment.map(type => `<div style="border: 1px solid black;margin-left:4px;margin-right:4px">${type}</div>`).join('')}
-                                        </div>
-                                        <h3>Has worked in ${employee.companyCount} companies</h3>
-                                    </div>
-                                    <button class="btn btn-primary" style="margin-left:auto;margin-right:15px;width: 170px;height: 46px;background-color: #5926E9;border-radius: 5px;" onclick="addToInbox(this)">Move to Inbox</button>
-                                </div>
-                            `;
-        
-                            empContainer.innerHTML = empContent;
-                            empList.appendChild(empContainer);
-                        });
+        const empContainer = document.createElement('div');
+        empContainer.classList.add('emp_container');
+
+        const empContent = `
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="${employee.picture}" alt="" style="margin-top: 10px; width: 237px; height: 179px;">
+                <div style="display: flex; flex-direction: column; justify-content: center; gap: 5px">
+                    <h3>${employee.name}</h3>
+                    <h4>${employee.location}</h4>
+                    <div style="display: flex; flex-direction: row; gap: 2px">
+                        ${employee.employment.map((type, index) => `
+                            <div style="
+                                border: 1px solid ${index === 0 ? 'green' : index === 1 ? '#B7BA16' : '#A910CF'};
+                                margin-left: 4px;
+                                margin-right: 4px;
+                                color: ${index === 0 ? 'green' : index === 1 ? '#B7BA16' : '#A910CF'}
+                            ">
+                                ${type}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <h3>Has worked in ${employee.companyCount} companies</h3>
+                </div>
+                <div style="border-left: 1px solid black; height: 100%; margin-left: 10px;"></div>
+                <button class="btn btn-primary" style="margin-left: auto; margin-right: 15px; width: 170px; height: 46px; background-color: #5926E9; border-radius: 5px;" onclick="addToInbox(this)">Move to Inbox</button>
+            </div>
+        `;
+
+        empContainer.innerHTML = empContent;
+        empList.appendChild(empContainer);
+    });
                     };
         
                     // Perform search based on search input and location
@@ -146,7 +156,7 @@
         
         <div class="list">
             <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
-                <div style="display: flex; flex-direction: column;">
+                <div style="display: flex; flex-direction: column;margin-top: 20px;">
                     <h1>All Employees</h1>
                 </div>
             </div>
